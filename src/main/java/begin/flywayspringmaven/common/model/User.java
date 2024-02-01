@@ -41,7 +41,7 @@ public class User extends BaseModel {
 
     public User() {}
 
-    public User(Integer id) {
-        this.id = id;
+    public User(Integer userId) {
+        this.id = userId;
     }
 }

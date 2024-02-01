@@ -1,5 +1,6 @@
 package begin.flywayspringmaven.api.user.dto;
 
+import begin.flywayspringmaven.common.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,11 +23,13 @@ public class UserDTO implements Serializable {
     private Integer age;
     private LocalDateTime modified;
 
-    public UserDTO(Integer id, String name, String email, Integer gender, LocalDateTime modified) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.gender = gender;
-        this.modified = modified;
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.avatar = user.getAvatar();
+        this.gender = user.getGender();
+        this.modified = user.getModified();
     }
 }
