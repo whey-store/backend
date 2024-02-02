@@ -9,12 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface UserRepository extends DefaultHttpRepository<User> {
-    @Query(value = "SELECT * FROM user", nativeQuery = true)
-    Page<UserDTO> findAllUser(Pageable pageable);
+    @Query(value = "SELECT * FROM user u WHERE u.deleted = 0 ", nativeQuery = true)
+    List<User> findAllUser();
 
     @Query(value = "SELECT * FROM user u WHERE u.id = :userId", nativeQuery = true)
     Optional<User> findUserById(@Param("userId") Integer userId);

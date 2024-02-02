@@ -39,6 +39,8 @@ public class User extends BaseModel {
 
     private Integer age;
 
+    private Boolean deleted;
+
     public User() {}
 
     public User(Integer userId) {

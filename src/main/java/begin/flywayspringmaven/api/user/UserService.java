@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,19 +25,14 @@ public class UserService extends BaseService {
 
     /**
      * Get list of User Admin
-     *
-     * @param query Search Info: user's name or user's email
-     * @param page current page
-     * @param limit amount record in a page
-     * @param strSort Sort by ascending or descending
-     * @return {@link PageInfo} {@link UserDTO}
      */
-    public PageInfo<UserDTO> getUserAdminsList(String query, Integer page, Integer limit, String strSort) {
-        Sort sort = Sort.by(Sort.Order.asc("user.id"));
-        String resultQuery = StringUtils.isEmpty(query) ? "" : query;
-        PageRequest pageRequest = this.buildPageRequest(page, limit, sort);
-        Page<UserDTO> data = this.userRepository.findAllUser(pageRequest);
-        return FlywaySpringUtils.pagingResponse(data);
+    public List<UserDTO> getUserAdminsList() {
+        List<UserDTO> userDTOList = new ArrayList<>();
+        List<User> users = this.userRepository.findAllUser();
+        for (User user : users) {
+            userDTOList.add(new UserDTO(user));
+        }
+        return userDTOList;
     }
 
     public UserDTO createUser(User userBody) throws Exception{
@@ -58,7 +55,11 @@ public class UserService extends BaseService {
     }
 
     public UserDTO deleteUser(Integer userId) throws Exception {
-
+        User user = this.getUserById(userId);
+        user.setDeleted(true);
+        this.userRepository.save(user);
+        UserDTO savaUser = new UserDTO(user);
+        return savaUser;
     }
 
     private User getUserById(Integer userId) throws Exception {

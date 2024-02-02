@@ -21,6 +21,7 @@ public class UserDTO implements Serializable {
     private  String avatar;
     private  Integer gender;
     private Integer age;
+    private Boolean deleted;
     private LocalDateTime modified;
 
     public UserDTO(User user) {
@@ -30,6 +31,7 @@ public class UserDTO implements Serializable {
         this.phone = user.getPhone();
         this.avatar = user.getAvatar();
         this.gender = user.getGender();
+        this.deleted = user.getDeleted();
         this.modified = user.getModified();
     }
 }
