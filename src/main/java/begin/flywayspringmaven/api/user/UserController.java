@@ -3,7 +3,6 @@ package begin.flywayspringmaven.api.user;
 import begin.flywayspringmaven.api.user.dto.UserDTO;
 import begin.flywayspringmaven.common.model.User;
 import begin.flywayspringmaven.common.response.APIResponse;
-import begin.flywayspringmaven.common.vo.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;

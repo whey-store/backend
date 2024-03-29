@@ -4,18 +4,11 @@ import begin.flywayspringmaven.api.user.dto.UserDTO;
 import begin.flywayspringmaven.common.base.BaseService;
 import begin.flywayspringmaven.common.model.User;
 import begin.flywayspringmaven.common.repository.UserRepository;
-import begin.flywayspringmaven.common.vo.PageInfo;
-import begin.flywayspringmaven.util.FlywaySpringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService extends BaseService {
