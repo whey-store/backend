@@ -1,9 +1,11 @@
 create table if not exists user
 (
-    id              int auto_increment primary key,
-    name            varchar(50) null,
-    email           varchar(150) null,
-    phone           varchar(11) null,
+    id        int auto_increment primary key,
+    username      varchar(50) null,
+    role_id   int not null,
+    password  varchar(255) not null,
+    email     varchar(150) null,
+    phone     varchar(11) null,
     avatar    varchar(255) null,
     gender    int null,
     age       int null,
