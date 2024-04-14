@@ -24,9 +24,6 @@ import lombok.Data;
 @Data
 public abstract class BaseModel implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     @Id
