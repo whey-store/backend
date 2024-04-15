@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 
 @Configurable
-public class SesConfig {
+public class AmazonSESConfig {
 
     @Value("${cloud.aws.region.static}")
     private String s3Region;

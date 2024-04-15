@@ -4,12 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 @Service
 public class EmailService implements EmailSender{
@@ -26,13 +26,13 @@ public class EmailService implements EmailSender{
      * @param content content of email
      */
     @Override
-    public void sendEmail(String emailSubject, String emailFrom, String[] emailTo, String content) {
-        MimeMailMessage mimeMessage = this.javaMailSender.createMimeMessage();
+    public void sendEmail(String emailSubject, String emailFrom, String emailTo, String content) {
+        MimeMessage mimeMessage = this.javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
         try {
             log.info("Email Subject:" + emailSubject);
             log.info("From Email:" + emailFrom);
-            log.info("To Emails:" + Arrays.toString(emailTo));
+//            log.info("To Emails:" + Arrays.toString(emailTo));
             helper = new MimeMessageHelper(mimeMessage, false, StandardCharsets.UTF_8.name());
             helper.setFrom(emailFrom);
             helper.setTo(emailTo);

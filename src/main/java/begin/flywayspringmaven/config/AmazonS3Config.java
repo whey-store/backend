@@ -1,5 +1,6 @@
 package begin.flywayspringmaven.config;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
@@ -20,12 +21,16 @@ public class AmazonS3Config {
     @Value("${cloud.aws.region.static}")
     private String s3Region;
 
+    public AWSCredentialsProvider credential() {
+        BasicAWSCredentials credentials = new BasicAWSCredentials(this.s3AccessKey, this.s3SecretKey);
+        return new AWSStaticCredentialsProvider(credentials);
+    }
+
+
     @Bean
     public AmazonS3 s3Client() {
-        BasicAWSCredentials credentials = new BasicAWSCredentials(this.s3AccessKey, this.s3SecretKey);
-
         return AmazonS3ClientBuilder.standard()
-            .withCredentials(new AWSStaticCredentialsProvider(credentials))
+            .withCredentials(credential())
             .withRegion(s3Region)
             .build();
     }
