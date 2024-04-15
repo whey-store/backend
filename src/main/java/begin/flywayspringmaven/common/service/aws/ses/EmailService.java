@@ -44,5 +44,4 @@ public class EmailService implements EmailSender{
             log.info("sendEmail error, error msg: {}", e.getMessage());
         }
     }
-
 }
