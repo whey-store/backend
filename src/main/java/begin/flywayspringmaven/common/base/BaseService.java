@@ -1,5 +1,7 @@
 package begin.flywayspringmaven.common.base;
 
+import begin.flywayspringmaven.common.model.Store;
+import begin.flywayspringmaven.common.repository.StoreRepository;
 import begin.flywayspringmaven.common.vo.JwtToken;
 import begin.flywayspringmaven.config.jwt.AccessToken;
 import begin.flywayspringmaven.config.jwt.JwtProvider;
@@ -25,6 +27,10 @@ public class BaseService {
     @Autowired
     private JwtProvider tokenProvider;
 
+    @Autowired
+    private StoreRepository storeRepository;
+
+
     /**
      * Build {@link PageRequest} with page and limit
      *
@@ -49,5 +55,14 @@ public class BaseService {
     public JwtToken jwtForAPIResponse(Authentication authentication, boolean isRememberMe) {
         AccessToken accessToken = this.tokenProvider.createAccessToken(authentication, isRememberMe);
         return new JwtToken(accessToken.getToken(), Constants.JWT_TOKEN_TYPE, accessToken.getRefreshToken());
+    }
+
+    /**
+     * Get Store by Id
+     * @Param storeId
+     * return Store
+     */
+    public Store getStoreById(Integer storeId) {
+        return this.storeRepository.findStoreById(storeId).orElse(null);
     }
 }

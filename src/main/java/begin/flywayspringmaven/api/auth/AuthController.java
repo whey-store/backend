@@ -73,7 +73,7 @@ public class AuthController {
             ) throws NotFoundException {
         User user = userService.createUser(userRequestDTO);
         UserDTO userDTO = new UserDTO(user);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDTO, null, null);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         userDTO.setJwtToken(baseService.jwtForAPIResponse(authentication, true));
         return APIResponse.okStatus(userDTO);

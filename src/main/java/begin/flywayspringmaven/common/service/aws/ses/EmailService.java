@@ -32,7 +32,6 @@ public class EmailService implements EmailSender{
         try {
             log.info("Email Subject:" + emailSubject);
             log.info("From Email:" + emailFrom);
-//            log.info("To Emails:" + Arrays.toString(emailTo));
             helper = new MimeMessageHelper(mimeMessage, false, StandardCharsets.UTF_8.name());
             helper.setFrom(emailFrom);
             helper.setTo(emailTo);

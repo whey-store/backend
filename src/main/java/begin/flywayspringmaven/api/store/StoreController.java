@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 public class StoreController {
-
     private final StoreService storeService;
     public StoreController(StoreService storeService) {
         this.storeService = storeService;
@@ -26,5 +25,4 @@ public class StoreController {
             @RequestBody StoreRequestDTO storeRequestDTO) throws NotFoundException {
         return APIResponse.createdStatus(storeService.createStore(storeRequestDTO));
     }
-
 }

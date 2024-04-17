@@ -6,24 +6,22 @@ import begin.flywayspringmaven.common.base.BaseService;
 import begin.flywayspringmaven.common.model.Product;
 import begin.flywayspringmaven.common.model.Store;
 import begin.flywayspringmaven.common.repository.ProductRepository;
-import begin.flywayspringmaven.common.repository.StoreRepository;
 import begin.flywayspringmaven.common.service.MessageService;
 import begin.flywayspringmaven.exception.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService extends BaseService {
     private final ProductRepository productRepository;
-    private final StoreRepository storeRepository;
     private final MessageService messageService;
     public ProductService(ProductRepository productRepository,
-                          StoreRepository storeRepository,
                           MessageService messageService) {
         this.productRepository = productRepository;
-        this.storeRepository = storeRepository;
         this.messageService = messageService;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public ProductDTO createProduct(ProductRequestDTO productRequestDTO) throws NotFoundException {
         Product product = new Product();
         product.setName(productRequestDTO.getName());
@@ -31,12 +29,11 @@ public class ProductService extends BaseService {
         product.setDescription(productRequestDTO.getDescription());
         product.setAmount(productRequestDTO.getAmount());
         Integer storeId = productRequestDTO.getStoreId();
-        Store store = storeRepository.findStoreById(storeId).orElseThrow(
-                ()-> new NotFoundException(NotFoundException.ERROR_ROLE_NOT_FOUND,
-                        this.messageService.buildMessages
-                                ("error.msg.not-found", "info.user.action.create-user"))
-        );
-
+        Store store = this.getStoreById(storeId);
+        if (store == null) {
+            throw new NotFoundException(NotFoundException.ERROR_STORE_NOT_FOUND,
+                this.messageService.buildMessages("error.msg.not-found", "info.store"));
+        }
         product.setStore(store);
         productRepository.save(product);
 

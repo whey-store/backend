@@ -7,12 +7,14 @@ import org.apache.http.HttpStatus;
 @Getter
 @Setter
 public class NotFoundException extends Exception {
+
+    public static final String ERROR_ROLE_NOT_FOUND = "ERROR_ROLE_NOT_FOUND";
+    public static final String ERROR_STORE_NOT_FOUND = "ERROR_STORE_NOT_FOUND";
+
     private static final long serialVersionUID = 1L;
     private String error;
     private String message;
     private HttpStatus httpStatus;
-
-    public static final String ERROR_ROLE_NOT_FOUND = "ERROR_ROLE_NOT_FOUND";
 
     public NotFoundException() {
         super();

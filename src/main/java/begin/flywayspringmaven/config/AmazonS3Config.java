@@ -26,7 +26,6 @@ public class AmazonS3Config {
         return new AWSStaticCredentialsProvider(credentials);
     }
 
-
     @Bean
     public AmazonS3 s3Client() {
         return AmazonS3ClientBuilder.standard()

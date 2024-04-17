@@ -1,6 +1,9 @@
 package begin.flywayspringmaven.common.service;
 
+import begin.flywayspringmaven.config.security.UserPrincipal;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -21,10 +24,11 @@ public class MessageService {
         return messageSource.getMessage(code, null, this.buildLocaleUserLogged());
     }
 
-    /**
-     * Get lang key of user logged
-     *
-     */
+    public String getMessage(String code, String langKey) {
+        Locale locale = langKey != null ? Locale.forLanguageTag(langKey) : Locale.US;
+        return messageSource.getMessage(code, null, locale);
+    }
+
     public Locale buildLocaleUserLogged() {
         return Locale.US;
     }

@@ -1,5 +1,6 @@
 package begin.flywayspringmaven.config.jwt;
 
+import begin.flywayspringmaven.common.model.User;
 import begin.flywayspringmaven.config.security.UserPrincipal;
 import begin.flywayspringmaven.enums.TokenEnum;
 import begin.flywayspringmaven.exception.BadRequestException;
@@ -53,7 +54,8 @@ public class JwtProvider {
     }
 
     public AccessToken createAccessToken(Authentication authentication, boolean rememberMe) {
-        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        User user = (User) authentication.getPrincipal();
+        UserPrincipal principal = new UserPrincipal(user);
         String name = String.valueOf(principal.getUserId());
 
         long now = (new Date()).getTime();

@@ -35,6 +35,15 @@ public class UserPrincipal implements UserDetails {
         return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAge(), user.getPhone());
     }
 
+    public UserPrincipal(User user) {
+        this.userId = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.age = user.getAge();
+        this.phone = user.getPhone();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
