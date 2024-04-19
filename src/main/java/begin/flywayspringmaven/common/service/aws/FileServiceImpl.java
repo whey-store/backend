@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class FileServiceImpl implements FileService {
     private final AmazonS3 s3Client;
 
     @Override
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
+    public URL uploadFile(MultipartFile multipartFile) throws IOException {
         // convert multipart file  to a file
         File file = new File(multipartFile.getOriginalFilename());
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)){
@@ -49,11 +50,12 @@ public class FileServiceImpl implements FileService {
         metadata.setContentLength(file.length());
         request.setMetadata(metadata);
         s3Client.putObject(request);
+        URL s3Url = s3Client.getUrl(bucketName, fileName);
 
         // delete file
         file.delete();
 
-        return fileName;
+        return s3Url;
     }
 
     @Override

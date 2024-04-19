@@ -60,9 +60,8 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getId(), authDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return APIResponse.okStatus(baseService.jwtForAPIResponse(authentication, authDTO.isRememberMe()));
+        return APIResponse.okStatus(baseService.jwtForAPIResponse(authentication, authDTO.isRememberMe(), true));
     }
-
 
     @PostMapping("/auth/sign-up")
     @ApiOperation(value = "Sign up")
@@ -75,7 +74,7 @@ public class AuthController {
         UserDTO userDTO = new UserDTO(user);
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        userDTO.setJwtToken(baseService.jwtForAPIResponse(authentication, true));
+        userDTO.setJwtToken(baseService.jwtForAPIResponse(authentication, true, false));
         return APIResponse.okStatus(userDTO);
     }
 }

@@ -52,8 +52,8 @@ public class BaseService {
      * @param isRememberMe remember me
      * @return JwtToken
      */
-    public JwtToken jwtForAPIResponse(Authentication authentication, boolean isRememberMe) {
-        AccessToken accessToken = this.tokenProvider.createAccessToken(authentication, isRememberMe);
+    public JwtToken jwtForAPIResponse(Authentication authentication, boolean isRememberMe, boolean isCheckLogin) {
+        AccessToken accessToken = this.tokenProvider.createAccessToken(authentication, isRememberMe, isCheckLogin);
         return new JwtToken(accessToken.getToken(), Constants.JWT_TOKEN_TYPE, accessToken.getRefreshToken());
     }
 

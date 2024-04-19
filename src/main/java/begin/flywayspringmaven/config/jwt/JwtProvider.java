@@ -53,9 +53,14 @@ public class JwtProvider {
         return expiration.before(new Date());
     }
 
-    public AccessToken createAccessToken(Authentication authentication, boolean rememberMe) {
-        User user = (User) authentication.getPrincipal();
-        UserPrincipal principal = new UserPrincipal(user);
+    public AccessToken createAccessToken(Authentication authentication, boolean rememberMe, boolean isCheckLogin) {
+        UserPrincipal principal = new UserPrincipal();
+        if(isCheckLogin) {
+            principal = (UserPrincipal) authentication.getPrincipal();
+        } else {
+            User user = (User) authentication.getPrincipal();
+            principal = new UserPrincipal(user);
+        }
         String name = String.valueOf(principal.getUserId());
 
         long now = (new Date()).getTime();

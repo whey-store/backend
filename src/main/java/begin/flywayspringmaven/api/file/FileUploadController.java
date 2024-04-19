@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,9 +42,9 @@ public class FileUploadController {
         List<String> allowedFileExtensions = new ArrayList<>(Arrays.asList("pdf", "txt", "epub", "csv", "png", "jpg", "jpeg", "srt"));
 
         if (isValidFile){
-            String fileName = fileService.uploadFile(multipartFile);
+            URL s3URL = fileService.uploadFile(multipartFile);
             FileDTO apiResponse = new FileDTO(
-                "file uploaded successfully. File unique name =>" + fileName,
+                "file uploaded successfully. File unique link =>" + s3URL,
                 true,
                 200
             );

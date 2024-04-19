@@ -1,6 +1,7 @@
 package begin.flywayspringmaven.api.product.dto;
 
 import begin.flywayspringmaven.common.model.Product;
+import begin.flywayspringmaven.common.model.Store;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +16,6 @@ public class ProductDTO {
     private String image;
     private String description;
     private Integer amount;
-    private Boolean deleted;
-    private Integer storeId;
 
     public ProductDTO(Product product) {
         this.id = product.getId();
