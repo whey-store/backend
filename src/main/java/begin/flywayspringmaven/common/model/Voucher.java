@@ -16,8 +16,8 @@ public class Voucher extends BaseModel {
     private String name;
     private Float percentReduction;
     private Integer quantity;
-    private LocalDateTime start_day;
-    private LocalDateTime end_day;
+    private LocalDateTime startDay;
+    private LocalDateTime endDay;
     private Boolean deleted;
 
     @ManyToMany
@@ -27,4 +27,9 @@ public class Voucher extends BaseModel {
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<User> users;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    private Store store;
+
 }
