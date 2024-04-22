@@ -25,7 +25,7 @@ public class ProductController {
      * @param page
      * @param limit
      * @param sort
-     * @return
+     * @return Oioilokkk
      */
     @GetMapping("/products")
     public APIResponse<PageInfo<ProductDTO>> getProductList(

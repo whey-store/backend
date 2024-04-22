@@ -1,6 +1,8 @@
 package begin.flywayspringmaven.common.base;
 
+import begin.flywayspringmaven.common.model.Product;
 import begin.flywayspringmaven.common.model.Store;
+import begin.flywayspringmaven.common.repository.ProductRepository;
 import begin.flywayspringmaven.common.repository.StoreRepository;
 import begin.flywayspringmaven.common.vo.JwtToken;
 import begin.flywayspringmaven.config.jwt.AccessToken;
@@ -29,6 +31,9 @@ public class BaseService {
 
     @Autowired
     private StoreRepository storeRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
 
     /**
@@ -64,5 +69,14 @@ public class BaseService {
      */
     public Store getStoreById(Integer storeId) {
         return this.storeRepository.findStoreById(storeId).orElse(null);
+    }
+
+    /**
+     * Get Product by id
+     * @Param productId
+     * return Product
+     */
+    public Product getProductById(Integer productId) {
+        return this.productRepository.findProductById(productId).orElse(null);
     }
 }

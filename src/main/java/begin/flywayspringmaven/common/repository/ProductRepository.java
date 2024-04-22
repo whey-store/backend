@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProductRepository extends DefaultHttpRepository<Product> {
 
@@ -24,4 +26,12 @@ public interface ProductRepository extends DefaultHttpRepository<Product> {
             + "ORDER BY product.modified ASC", nativeQuery = true
     )
     Page<Product> getProductListByAdmin(@Param("query") String query, Pageable pageable);
+
+    /**
+     * Find product by id
+     * @param productId
+     * @return
+     */
+    @Query(value = "SELECT * FROM product WHERE product.id = :productId", nativeQuery = true)
+    Optional<Product> findProductById(@Param("productId") Integer productId);
 }

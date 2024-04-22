@@ -5,7 +5,6 @@ import begin.flywayspringmaven.api.store.dto.StoreRequestDTO;
 import begin.flywayspringmaven.common.response.APIResponse;
 import begin.flywayspringmaven.exception.NotFoundException;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
