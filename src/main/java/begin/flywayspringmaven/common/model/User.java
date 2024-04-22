@@ -9,9 +9,12 @@ import begin.flywayspringmaven.api.user.dto.UserRequestDTO;
 import begin.flywayspringmaven.common.base.BaseModel;
 import begin.flywayspringmaven.support.httpdefault.MapField;
 import begin.flywayspringmaven.support.httpdefault.annotation.dto.CreateRequestClassDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Table
@@ -30,6 +33,7 @@ public class User extends BaseModel {
     private String email;
 
     @Size(max = 255, message = "")
+    @JsonIgnore // JsonIgnore : hidden properties password
     private String password;
 
     @Size(max = 15, message = "Phone {validation.size-max}")
@@ -48,8 +52,13 @@ public class User extends BaseModel {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
-//    @OneToOne(mappedBy = "user")
-//    private Store store;
+    @ManyToMany
+    @JoinTable(
+        name = "user_voucher",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "voucher_id")
+    )
+    private Set<Voucher> vouchers;
 
     public User() {}
 

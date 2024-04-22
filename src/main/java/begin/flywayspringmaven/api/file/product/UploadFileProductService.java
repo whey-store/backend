@@ -6,7 +6,7 @@ import begin.flywayspringmaven.common.model.Product;
 import begin.flywayspringmaven.common.repository.ProductRepository;
 import begin.flywayspringmaven.common.service.MessageService;
 import begin.flywayspringmaven.common.service.aws.FileService;
-import begin.flywayspringmaven.exception.FileEmptyException;
+import begin.flywayspringmaven.exception.FileInValidException;
 import begin.flywayspringmaven.exception.FileUploadException;
 import begin.flywayspringmaven.exception.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class UploadFileProductService extends BaseService {
         this.messageService = messageService;
     }
 
-    public ProductDTO uploadImageProduct(Integer productId, MultipartFile multipartFile) throws FileEmptyException, FileUploadException, IOException , NotFoundException{
+    public ProductDTO uploadImageProduct(Integer productId, MultipartFile multipartFile) throws FileInValidException, FileUploadException, IOException , NotFoundException{
         Product product = this.getProductById(productId);
         if(product == null) {
             throw new NotFoundException(NotFoundException.ERROR_PRODUCT_NOT_FOUND,
@@ -44,7 +44,7 @@ public class UploadFileProductService extends BaseService {
         boolean isValidFile = isValidFile(multipartFile);
 
         if (!isValidFile) {
-            throw new FileEmptyException("File is inValid");
+            throw new FileInValidException(FileInValidException.ERROR_FILE_IN_VALID, "File is inValid");
         }
 
         String productURL = "";
@@ -61,7 +61,7 @@ public class UploadFileProductService extends BaseService {
             return false;
         }
         List<String> allowedFileExtensions = new ArrayList<>(Arrays.asList("pdf", "txt", "epub", "csv", "png", "jpg", "jpeg", "srt"));
-        String[] file = multipartFile.getName().split("\\.(?=[^\\.]+$)");
+        String[] file = multipartFile.getOriginalFilename().split("\\.(?=[^\\.]+$)");
         if(!allowedFileExtensions.contains(file[1])) {
             return false;
         }

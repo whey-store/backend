@@ -4,7 +4,7 @@ import begin.flywayspringmaven.api.file.dto.FileDTO;
 import begin.flywayspringmaven.common.response.APIResponse;
 import begin.flywayspringmaven.common.service.aws.FileService;
 import begin.flywayspringmaven.exception.FileDownloadException;
-import begin.flywayspringmaven.exception.FileEmptyException;
+import begin.flywayspringmaven.exception.FileInValidException;
 import begin.flywayspringmaven.exception.FileUploadException;
 import com.google.common.net.HttpHeaders;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +34,9 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws FileEmptyException, FileUploadException, IOException {
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws FileInValidException, FileUploadException, IOException {
         if (multipartFile.isEmpty()){
-            throw new FileEmptyException("File is empty. Cannot save an empty file");
+            throw new FileInValidException(FileInValidException.ERROR_FILE_IN_VALID, "File is empty. Cannot save an empty file");
         }
         boolean isValidFile = isValidFile(multipartFile);
         List<String> allowedFileExtensions = new ArrayList<>(Arrays.asList("pdf", "txt", "epub", "csv", "png", "jpg", "jpeg", "srt"));

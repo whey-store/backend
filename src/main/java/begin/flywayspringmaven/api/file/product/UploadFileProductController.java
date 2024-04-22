@@ -3,7 +3,7 @@ package begin.flywayspringmaven.api.file.product;
 
 import begin.flywayspringmaven.api.product.dto.ProductDTO;
 import begin.flywayspringmaven.common.response.APIResponse;
-import begin.flywayspringmaven.exception.FileEmptyException;
+import begin.flywayspringmaven.exception.FileInValidException;
 import begin.flywayspringmaven.exception.FileUploadException;
 import begin.flywayspringmaven.exception.NotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class UploadFileProductController {
     public APIResponse<ProductDTO> uploadImageProduct(
         @PathVariable(value = "productId", required = true) int productId,
         @RequestParam(value = "file", required = true) MultipartFile multipartFile
-    ) throws FileEmptyException, FileUploadException, IOException, NotFoundException {
+    ) throws FileInValidException, FileUploadException, IOException, NotFoundException {
         return APIResponse.okStatus(uploadFileProductService.uploadImageProduct(productId, multipartFile));
     }
 }
