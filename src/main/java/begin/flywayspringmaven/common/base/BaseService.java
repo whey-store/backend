@@ -2,8 +2,10 @@ package begin.flywayspringmaven.common.base;
 
 import begin.flywayspringmaven.common.model.Product;
 import begin.flywayspringmaven.common.model.Store;
+import begin.flywayspringmaven.common.model.User;
 import begin.flywayspringmaven.common.repository.ProductRepository;
 import begin.flywayspringmaven.common.repository.StoreRepository;
+import begin.flywayspringmaven.common.repository.UserRepository;
 import begin.flywayspringmaven.common.vo.JwtToken;
 import begin.flywayspringmaven.config.jwt.AccessToken;
 import begin.flywayspringmaven.config.jwt.JwtProvider;
@@ -34,6 +36,9 @@ public class BaseService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     /**
@@ -78,5 +83,15 @@ public class BaseService {
      */
     public Product getProductById(Integer productId) {
         return this.productRepository.findProductById(productId).orElse(null);
+    }
+
+    /**
+     * Get User by Id
+     *
+     * @param userId
+     * @return User
+     */
+    public User getUserById(Integer userId) {
+        return this.userRepository.findUserById(userId).orElse(null);
     }
 }

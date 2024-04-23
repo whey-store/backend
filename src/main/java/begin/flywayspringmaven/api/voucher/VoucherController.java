@@ -1,6 +1,7 @@
 package begin.flywayspringmaven.api.voucher;
 
 import begin.flywayspringmaven.api.voucher.dto.VoucherDTO;
+import begin.flywayspringmaven.api.voucher.dto.VoucherRequestDTO;
 import begin.flywayspringmaven.common.response.APIResponse;
 import begin.flywayspringmaven.exception.NotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,9 @@ public class VoucherController {
     }
 
     @PostMapping("/vouchers")
-    public APIResponse<VoucherDTO> createVoucher(@RequestBody VoucherDTO voucherDTO) throws NotFoundException {
+    public APIResponse<VoucherDTO> createVoucher(@RequestBody VoucherRequestDTO voucherDTO) throws NotFoundException {
         return APIResponse.okStatus(this.voucherService.createVoucher(voucherDTO));
     }
+
+
 }

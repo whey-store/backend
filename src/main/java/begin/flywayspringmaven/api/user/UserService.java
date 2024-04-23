@@ -124,8 +124,4 @@ public class UserService extends BaseService {
         UserDTO savaUser = new UserDTO(user);
         return savaUser;
     }
-
-    private User getUserById(Integer userId) throws Exception {
-        return userRepository.findUserById(userId).orElse(null);
-    }
 }

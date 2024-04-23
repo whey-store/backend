@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -55,10 +56,10 @@ public class User extends BaseModel {
     @ManyToMany
     @JoinTable(
         name = "user_voucher",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "voucher_id")
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "voucher_id", referencedColumnName = "id")
     )
-    private Set<Voucher> vouchers;
+    private List<Voucher> vouchers;
 
     public User() {}
 

@@ -53,6 +53,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/api/v1/file/**"
     };
 
+    public static final String[] AUTH_FOR_POST_METHOD = {
+        "/api/v1/vouchers",
+        "/api/v1/products/**",
+        "/api/v1/user-vouchers"
+    };
+
+    public static final String[] AUTH_FOR_PUT_METHOD = {
+        "/api/v1/users/**",
+    };
+
+    public static final String[] AUTH_FOR_DELETE_METHOD = {
+        "/api/v1/users/**",
+    };
+
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {
         return new JwtAuthTokenFilter();
@@ -101,6 +115,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.GET, AUTH_FOR_GET_METHOD).permitAll()
+                .antMatchers(HttpMethod.POST, AUTH_FOR_POST_METHOD).permitAll()
+                .antMatchers(HttpMethod.PUT, AUTH_FOR_PUT_METHOD).permitAll()
+                .antMatchers(HttpMethod.DELETE, AUTH_FOR_DELETE_METHOD).permitAll()
                 .anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(this.unauthorizedHandler)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
